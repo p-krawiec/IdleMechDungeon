@@ -51,11 +51,11 @@ func recalculate_shooting_stats():
 	$CooldownTimer.wait_time = 1.0 / player.attack_speed
 
 func _on_body_entered(body):
-	if (body as Node).is_in_group("Enemy"):
+	if (body as Node).is_in_group("Enemy") or (body as Node).is_in_group("Boss"):
 		enemies_in_range.append(body)
 
 func _on_body_exited(body):
-	if (body as Node).is_in_group("Enemy"):
+	if (body as Node).is_in_group("Enemy") or (body as Node).is_in_group("Boss"):
 		enemies_in_range.erase(body)
 
 func _on_cooldown_timer_timeout():
@@ -66,9 +66,9 @@ func calculate_closest_enemy():
 	closest_enemy = null
 	
 	for enemy in enemies_in_range:
-		if enemy.harmless:
+		if enemy is BaseEnemy and enemy.harmless:
 			continue
-			
+		
 		var distance = position.distance_squared_to(enemy.position)
 		if distance < min_distance:
 			min_distance = distance

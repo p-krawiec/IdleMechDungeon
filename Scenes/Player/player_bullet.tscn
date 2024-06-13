@@ -64,7 +64,7 @@ frame_progress = 0.912416
 
 [node name="HitboxComponent" type="Area2D" parent="."]
 collision_layer = 1024
-collision_mask = 512
+collision_mask = 8712
 script = ExtResource("2_cs07b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]

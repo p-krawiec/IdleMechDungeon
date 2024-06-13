@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dlyx5ot03gmvr"]
+[gd_scene load_steps=34 format=3 uid="uid://dlyx5ot03gmvr"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/BossEnemy/BossEnemy.gd" id="1_bpiwb"]
 [ext_resource type="Texture2D" uid="uid://u0nkseda1ywf" path="res://Assets/Sprites/boss outlines v2 x1.png" id="2_r0bhk"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://m8jrn8k3pupg" path="res://Scenes/States/BossStates/Scenes/boss_big_shoot.tscn" id="8_8wvuj"]
 [ext_resource type="PackedScene" uid="uid://bfm76x4sehs5p" path="res://Scenes/States/BossStates/Scenes/boss_fast_shoot.tscn" id="9_5di0o"]
 [ext_resource type="PackedScene" uid="uid://bwctilfb80std" path="res://Scenes/States/BossStates/Scenes/boss_dash.tscn" id="10_5lomw"]
+[ext_resource type="PackedScene" uid="uid://dwplrnex5k4bn" path="res://Scenes/Util/health_component.tscn" id="11_8nbpy"]
+[ext_resource type="PackedScene" uid="uid://di5sokfg272jd" path="res://Scenes/Util/hitbox_component.tscn" id="12_irtf4"]
 
 [sub_resource type="Animation" id="Animation_52q01"]
 resource_name = "Death"
@@ -674,7 +676,6 @@ height = 52.0
 collision_layer = 8
 collision_mask = 131
 script = ExtResource("1_bpiwb")
-current_phase = 2
 
 [node name="OutlineSprite" type="Sprite2D" parent="."]
 position = Vector2(0, -12)
@@ -742,4 +743,23 @@ dash_charge_time = 1.0
 dashing_time = 2.0
 follow_player_while_dashing = true
 
+[node name="HealthComponent" parent="." instance=ExtResource("11_8nbpy")]
+max_health = 100
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("12_irtf4")]
+collision_layer = 8
+collision_mask = 1280
+health_component = NodePath("../HealthComponent")
+
+[node name="WalkingCollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(3, -6)
+shape = SubResource("CapsuleShape2D_cppb8")
+
+[node name="FlyingCollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(3, -9)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_loltv")
+debug_color = Color(0.556863, 0.4, 1, 0.419608)
+
 [connection signal="animation_finished" from="LegsAnimationPlayer" to="." method="_on_legs_animation_player_animation_finished"]
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]

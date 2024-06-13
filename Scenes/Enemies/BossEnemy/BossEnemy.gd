@@ -21,8 +21,15 @@ class_name Boss
 @onready var shadows_sprite = $ShadowsSprite
 @onready var body_sprite = $BodySprite
 
+@onready var hitbox_component = $HitboxComponent
+var notifier_scene = preload("res://Scenes/Util/on_screen_notifier_component.tscn") 
 
 var direction: Vector2
+
+func ready():
+	var notifier = notifier_scene.instantiate()
+	notifier.color = Color.FIREBRICK
+	add_child(notifier)
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("debug"):
@@ -37,6 +44,8 @@ func change_to_flying():
 	$LegsSprite.visible = false
 	$WalkingCollisionShape.set_deferred("disabled", true)
 	$FlyingCollisionShape.set_deferred("disabled", false)
+	$HitboxComponent/WalkingCollisionShape.set_deferred("disabled", true)
+	$HitboxComponent/FlyingCollisionShape.set_deferred("disabled", false)
 	set_collision_mask_value(2, false)
 
 	is_following_player = true
@@ -46,6 +55,8 @@ func change_to_walking():
 	$LegsSprite.visible = true
 	$WalkingCollisionShape.set_deferred("disabled", false)
 	$FlyingCollisionShape.set_deferred("disabled", true)
+	$HitboxComponent/WalkingCollisionShape.set_deferred("disabled", false)
+	$HitboxComponent/FlyingCollisionShape.set_deferred("disabled", true)
 	set_collision_mask_value(2, true)
 
 	is_following_player = true
@@ -55,3 +66,7 @@ func _on_legs_animation_player_animation_finished(anim_name):
 		change_to_flying()
 	elif anim_name == "Show":
 		change_to_walking()
+
+func _on_hitbox_component_area_entered(area):
+	if area is HitboxComponent:
+		area.damage(melee_damage)
