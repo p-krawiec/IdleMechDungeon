@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqs2dcypap161"]
+
+[ext_resource type="Script" path="res://Scenes/States/EnemyStates/EnemyDash.gd" id="1_7j8i6"]
+
+[node name="EnemyDash" type="Node"]
+script = ExtResource("1_7j8i6")
+dash_speed_modifier = 4.0
+
+[node name="DashChargeTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[connection signal="timeout" from="DashChargeTimer" to="." method="_on_dash_charge_timer_timeout"]
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]

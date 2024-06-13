@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8vdfhbbytngw"]
+
+[ext_resource type="Script" path="res://Scenes/States/EnemyStates/EnemyShoot.gd" id="1_dsn8v"]
+[ext_resource type="AudioStream" uid="uid://ynbjbtic8ukl" path="res://Assets/Sounds/enemyLaser.wav" id="2_kid2b"]
+
+[node name="EnemyShoot" type="Node"]
+script = ExtResource("1_dsn8v")
+projectile_speed = 200.0
+
+[node name="ShootCooldownTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="LaserStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_kid2b")
+volume_db = -10.0
+bus = &"Sounds"
+
+[connection signal="timeout" from="ShootCooldownTimer" to="." method="_on_shoot_cooldown_timer_timeout"]

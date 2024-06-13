@@ -1,0 +1,42 @@
+[gd_scene load_steps=14 format=3 uid="uid://c3joihl7fdgh"]
+
+[ext_resource type="Script" path="res://Scenes/Main/game_main.gd" id="1_jypea"]
+[ext_resource type="PackedScene" uid="uid://cnmupx75q65fy" path="res://Scenes/Player/player.tscn" id="2_d4gkh"]
+[ext_resource type="PackedScene" uid="uid://b6qixmjgjkoy4" path="res://Scenes/Rooms/room_1.tscn" id="3_skdd7"]
+[ext_resource type="PackedScene" uid="uid://duq2jsf0h6m8m" path="res://Scenes/Rooms/room_2.tscn" id="4_dbbfb"]
+[ext_resource type="PackedScene" uid="uid://bteuawa57ftco" path="res://Scenes/Rooms/room_3.tscn" id="5_hapq8"]
+[ext_resource type="PackedScene" uid="uid://boa8ga8logdy2" path="res://Scenes/Rooms/room_4.tscn" id="6_1yxkc"]
+[ext_resource type="PackedScene" uid="uid://d27n30gm8mw03" path="res://Scenes/Rooms/room_5.tscn" id="7_xbcd2"]
+[ext_resource type="PackedScene" uid="uid://bq6nhdfsle5lu" path="res://Scenes/Rooms/room_6.tscn" id="8_204bb"]
+[ext_resource type="PackedScene" uid="uid://bsacs1hwtumbn" path="res://Scenes/Rooms/room_7.tscn" id="9_gq0uw"]
+[ext_resource type="PackedScene" uid="uid://lgny2mfaqlq8" path="res://Scenes/Rooms/room_8.tscn" id="10_hkulc"]
+[ext_resource type="PackedScene" uid="uid://bwrv8u0gx6bqb" path="res://Scenes/UI/pause_menu.tscn" id="13_ru5h6"]
+[ext_resource type="PackedScene" uid="uid://epqrumrbn476" path="res://Scenes/UI/hud.tscn" id="14_pw27n"]
+[ext_resource type="PackedScene" uid="uid://0l8b0xou8cr5" path="res://Scenes/UI/touch_ui.tscn" id="18_o4po8"]
+
+[node name="GameMain" type="Node" groups=["GameMain"]]
+script = ExtResource("1_jypea")
+room_scenes = Array[PackedScene]([ExtResource("3_skdd7"), ExtResource("4_dbbfb"), ExtResource("5_hapq8"), ExtResource("6_1yxkc"), ExtResource("7_xbcd2"), ExtResource("8_204bb"), ExtResource("9_gq0uw"), ExtResource("10_hkulc")])
+
+[node name="CurrentRoom" type="Node2D" parent="."]
+
+[node name="Entities" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="Entities" node_paths=PackedStringArray("touch_ui") instance=ExtResource("2_d4gkh")]
+position = Vector2(-565, 433)
+touch_ui = NodePath("../../CanvasLayer/TouchUI")
+attack_speed = 5.0
+
+[node name="Camera2D" type="Camera2D" parent="Entities/Player"]
+zoom = Vector2(2, 2)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" node_paths=PackedStringArray("player") instance=ExtResource("14_pw27n")]
+mouse_filter = 2
+player = NodePath("../../Entities/Player")
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("13_ru5h6")]
+
+[node name="TouchUI" parent="CanvasLayer" instance=ExtResource("18_o4po8")]

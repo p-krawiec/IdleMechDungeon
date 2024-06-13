@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://blgaupe1by2ql"]
+
+[ext_resource type="Script" path="res://Scenes/Enemies/EnemyBullet/enemy_bullet.gd" id="1_g4knu"]
+[ext_resource type="Texture2D" uid="uid://ds8w0cby440un" path="res://Assets/Sprites/projectiles x1.png" id="2_rlj2h"]
+[ext_resource type="PackedScene" uid="uid://di5sokfg272jd" path="res://Scenes/Util/hitbox_component.tscn" id="3_v6nfe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujqdh"]
+atlas = ExtResource("2_rlj2h")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fywuh"]
+atlas = ExtResource("2_rlj2h")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18lhh"]
+atlas = ExtResource("2_rlj2h")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5a8yp"]
+atlas = ExtResource("2_rlj2h")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_di17t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujqdh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fywuh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18lhh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5a8yp")
+}],
+"loop": true,
+"name": &"round",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6hu3n"]
+radius = 3.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o2us8"]
+size = Vector2(4, 4)
+
+[sub_resource type="Curve" id="Curve_yuac5"]
+_data = [Vector2(0.010989, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.252632), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="EnemyBullet" type="CharacterBody2D"]
+scale = Vector2(1.75, 1.75)
+collision_layer = 0
+script = ExtResource("1_g4knu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_di17t")
+animation = &"round"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_6hu3n")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("3_v6nfe")]
+collision_layer = 2048
+collision_mask = 256
+
+[node name="CollisionShape" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_o2us8")
+debug_color = Color(0.52549, 0, 0.701961, 0.419608)
+
+[node name="OnHitParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(-1, 0)
+spread = 65.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+scale_amount_min = 0.5
+scale_amount_max = 1.5
+scale_amount_curve = SubResource("Curve_yuac5")
+color = Color(0.654902, 0.941176, 0.439216, 1)
+
+[connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]

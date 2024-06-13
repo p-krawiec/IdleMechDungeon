@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://o5m8r3gfbqm6"]
+
+[ext_resource type="Script" path="res://Scenes/States/EnemyStates/EnemyFlank.gd" id="1_gdvr8"]
+
+[node name="EnemyFlank" type="Node"]
+script = ExtResource("1_gdvr8")
+
+[node name="FlankTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="FlankTimer" to="." method="_on_flank_timer_timeout"]

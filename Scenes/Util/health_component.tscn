@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwplrnex5k4bn"]
+
+[ext_resource type="Script" path="res://Scenes/Util/health_component.gd" id="1_f2jld"]
+[ext_resource type="AudioStream" uid="uid://bk24e7h3i8l8m" path="res://Assets/Sounds/hitHurt.wav" id="2_hcgia"]
+
+[node name="HealthComponent" type="Node2D"]
+script = ExtResource("1_f2jld")
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="HurtStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_hcgia")
+volume_db = -5.0
+bus = &"Sounds"
+
+[connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]

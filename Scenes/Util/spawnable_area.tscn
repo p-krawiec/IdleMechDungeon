@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1rpl2wsj3ukc"]
+
+[ext_resource type="Script" path="res://Scenes/Util/spawnable_area.gd" id="1_yru3j"]
+
+[node name="SpawnableArea" type="Area2D"]
+collision_mask = 256
+script = ExtResource("1_yru3j")
+
+[node name="BeforeFirstSpawnTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[node name="BetweenSpawnsTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="BeforeFirstSpawnTimer" to="." method="_on_before_first_spawn_timer_timeout"]
+[connection signal="timeout" from="BetweenSpawnsTimer" to="." method="_on_between_spawns_timer_timeout"]

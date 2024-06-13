@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwctilfb80std"]
+
+[ext_resource type="Script" path="res://Scenes/States/BossStates/BossDash.gd" id="1_jx6mx"]
+
+[node name="BossDash" type="Node"]
+script = ExtResource("1_jx6mx")
+
+[node name="DashChargeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DashDurationTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="DashChargeTimer" to="." method="_on_dash_charge_timer_timeout"]
+[connection signal="timeout" from="DashDurationTimer" to="." method="_on_dash_duration_timer_timeout"]

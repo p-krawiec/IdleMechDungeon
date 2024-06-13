@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://m8jrn8k3pupg"]
+
+[ext_resource type="Script" path="res://Scenes/States/BossStates/BossBigShoot.gd" id="1_tsd1x"]
+[ext_resource type="AudioStream" uid="uid://cmrx0dkw52a1x" path="res://Assets/Sounds/explosion (1).wav" id="2_p377i"]
+
+[node name="BossBigShoot" type="Node"]
+script = ExtResource("1_tsd1x")
+
+[node name="LaserStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_p377i")
+volume_db = -5.0
+bus = &"Sounds"

@@ -1,0 +1,196 @@
+[gd_scene load_steps=22 format=3 uid="uid://bwygrrjfj5cma"]
+
+[ext_resource type="Script" path="res://Scenes/Enemies/BaseEnemy/BaseEnemy.gd" id="1_prmv2"]
+[ext_resource type="Texture2D" uid="uid://bs0psdr4kg0gd" path="res://Assets/Sprites/RED shooting enemy with red eyes x1.png" id="2_ckjlm"]
+[ext_resource type="PackedScene" uid="uid://dwplrnex5k4bn" path="res://Scenes/Util/health_component.tscn" id="3_jcjgo"]
+[ext_resource type="PackedScene" uid="uid://di5sokfg272jd" path="res://Scenes/Util/hitbox_component.tscn" id="4_k3kod"]
+[ext_resource type="PackedScene" uid="uid://cvpu1xqp8eoab" path="res://Scenes/UI/health_bar_component.tscn" id="5_a0mq0"]
+[ext_resource type="PackedScene" uid="uid://tpuva6os4x1e" path="res://Scenes/States/EnemyStates/enemy_state_machine.tscn" id="6_6w51d"]
+[ext_resource type="PackedScene" uid="uid://brh7uvepfqxme" path="res://Scenes/States/EnemyStates/Scenes/enemy_idle.tscn" id="7_l0umj"]
+[ext_resource type="PackedScene" uid="uid://o78hwoxko7hp" path="res://Scenes/States/EnemyStates/Scenes/enemy_spawn.tscn" id="8_rrali"]
+[ext_resource type="PackedScene" uid="uid://ci5f4ge6013pu" path="res://Scenes/States/EnemyStates/Scenes/enemy_wander.tscn" id="9_xhhaw"]
+[ext_resource type="PackedScene" uid="uid://vg56xjqy4tq4" path="res://Scenes/States/EnemyStates/Scenes/enemy_follow.tscn" id="10_68jop"]
+[ext_resource type="PackedScene" uid="uid://dthl60vgvarkb" path="res://Scenes/States/EnemyStates/Scenes/enemy_die.tscn" id="11_k4jfq"]
+[ext_resource type="PackedScene" uid="uid://b8vdfhbbytngw" path="res://Scenes/States/EnemyStates/Scenes/enemy_shoot.tscn" id="12_5i7ue"]
+
+[sub_resource type="Animation" id="Animation_cqdo6"]
+resource_name = "Death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [42, 43, 44, 45, 46, 47, 49]
+}
+
+[sub_resource type="Animation" id="Animation_sqkov"]
+resource_name = "Follow"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_gasg4"]
+resource_name = "Idle"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_c5v77"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_akc32"]
+resource_name = "Shoot"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [30, 31, 32, 33]
+}
+
+[sub_resource type="Animation" id="Animation_dtbgq"]
+resource_name = "Walk"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dsgpk"]
+_data = {
+"Death": SubResource("Animation_cqdo6"),
+"Follow": SubResource("Animation_sqkov"),
+"Idle": SubResource("Animation_gasg4"),
+"RESET": SubResource("Animation_c5v77"),
+"Shoot": SubResource("Animation_akc32"),
+"Walk": SubResource("Animation_dtbgq")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oej5b"]
+radius = 6.0
+height = 14.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lcvv6"]
+radius = 7.0
+height = 22.0
+
+[node name="AdvancedShootingEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "animation_player", "collision_shape", "hitbox_component", "state_machine") groups=["Enemy"]]
+collision_layer = 512
+collision_mask = 515
+script = ExtResource("1_prmv2")
+follow_speed = 40.0
+detection_range = 300.0
+follow_range = 350.0
+wander_speed = 25.0
+sprite = NodePath("Sprite2D")
+animation_player = NodePath("AnimationPlayer")
+collision_shape = NodePath("CollisionShape2D")
+hitbox_component = NodePath("HitboxComponent")
+state_machine = NodePath("EnemyStateMachine")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, 4)
+texture = ExtResource("2_ckjlm")
+hframes = 10
+vframes = 33
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dsgpk")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 13)
+shape = SubResource("CapsuleShape2D_oej5b")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_jcjgo")]
+max_health = 10
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_k3kod")]
+collision_layer = 512
+collision_mask = 1280
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_lcvv6")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_a0mq0")]
+position = Vector2(0, -17)
+health_component = NodePath("../HealthComponent")
+
+[node name="EnemyStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("6_6w51d")]
+initial_state = NodePath("EnemySpawn")
+
+[node name="EnemyIdle" parent="EnemyStateMachine" instance=ExtResource("7_l0umj")]
+
+[node name="EnemySpawn" parent="EnemyStateMachine" instance=ExtResource("8_rrali")]
+
+[node name="EnemyWander" parent="EnemyStateMachine" instance=ExtResource("9_xhhaw")]
+
+[node name="EnemyFollow" parent="EnemyStateMachine" instance=ExtResource("10_68jop")]
+follow_animation_name = "Follow"
+
+[node name="EnemyDie" parent="EnemyStateMachine" instance=ExtResource("11_k4jfq")]
+
+[node name="EnemyShoot" parent="EnemyStateMachine" instance=ExtResource("12_5i7ue")]
+number_of_bullets = 1
+shoot_range = 200.0
+shoot_cooldown = 1.0

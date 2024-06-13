@@ -1,0 +1,112 @@
+[gd_scene load_steps=9 format=3 uid="uid://0l8b0xou8cr5"]
+
+[ext_resource type="Script" path="res://Scenes/UI/touch_ui.gd" id="1_2x241"]
+[ext_resource type="Texture2D" uid="uid://bnkq7cfvxp50" path="res://Assets/UI/JoystickSplitted.png" id="1_y02yd"]
+[ext_resource type="Texture2D" uid="uid://df2xhc4jc67hx" path="res://Assets/UI/SmallHandleFilledGrey.png" id="2_62xc3"]
+[ext_resource type="StyleBox" uid="uid://cw6ord50bn6o4" path="res://Assets/UI/RoundTouchButton.tres" id="4_5hef8"]
+[ext_resource type="Texture2D" uid="uid://bllka7ojrnh3y" path="res://Assets/UI/Skillicon13_29.png" id="4_aqoy2"]
+[ext_resource type="Texture2D" uid="uid://ff1rqqsq4m5k" path="res://Assets/UI/Skillicon5_38.png" id="6_kjeo6"]
+[ext_resource type="Texture2D" uid="uid://cmc8ha1ujy77j" path="res://Assets/UI/Skillicon7_32.png" id="6_s8xyk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5u23"]
+
+[node name="TouchUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2x241")
+
+[node name="Joystick" type="TouchScreenButton" parent="."]
+shape = SubResource("RectangleShape2D_m5u23")
+
+[node name="Outline" type="Sprite2D" parent="Joystick"]
+visible = false
+texture = ExtResource("1_y02yd")
+
+[node name="Knob" type="Sprite2D" parent="Joystick/Outline"]
+visible = false
+texture = ExtResource("2_62xc3")
+
+[node name="DashControl" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0.74902)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -192.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="DashControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("4_5hef8")
+
+[node name="DashButton" type="TouchScreenButton" parent="DashControl"]
+scale = Vector2(5, 5)
+texture_normal = ExtResource("4_aqoy2")
+
+[node name="UseControl" type="Control" parent="." groups=["UseButton"]]
+visible = false
+modulate = Color(1, 1, 1, 0.74902)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = 96.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UseControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("4_5hef8")
+
+[node name="UseButton" type="TouchScreenButton" parent="UseControl"]
+scale = Vector2(2, 2)
+texture_normal = ExtResource("6_kjeo6")
+
+[node name="PauseControl" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0.74902)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 48.0
+grow_horizontal = 0
+
+[node name="PauseButton" type="TouchScreenButton" parent="PauseControl"]
+self_modulate = Color(1, 1, 1, 0.74902)
+texture_normal = ExtResource("6_s8xyk")
+
+[connection signal="pressed" from="Joystick" to="." method="_on_joystick_pressed"]
+[connection signal="released" from="Joystick" to="." method="_on_joystick_released"]
+[connection signal="pressed" from="DashControl/DashButton" to="." method="_on_dash_button_pressed"]
+[connection signal="released" from="DashControl/DashButton" to="." method="_on_dash_button_released"]
+[connection signal="pressed" from="UseControl/UseButton" to="." method="_on_use_button_pressed"]
+[connection signal="released" from="UseControl/UseButton" to="." method="_on_use_button_released"]
+[connection signal="pressed" from="PauseControl/PauseButton" to="." method="_on_pause_button_pressed"]

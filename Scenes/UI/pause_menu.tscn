@@ -1,0 +1,235 @@
+[gd_scene load_steps=13 format=3 uid="uid://bwrv8u0gx6bqb"]
+
+[ext_resource type="Script" path="res://Scenes/UI/pause_menu.gd" id="1_1vrmy"]
+[ext_resource type="Shader" path="res://Shaders/blur.gdshader" id="1_dq6tx"]
+[ext_resource type="Theme" uid="uid://ed8xs2mqvcga" path="res://Assets/UI/MenuTheme.tres" id="3_sbar0"]
+[ext_resource type="AudioStream" uid="uid://cj8gk2xy0lv2k" path="res://Assets/Sounds/ButtonPress.wav" id="4_w4t2c"]
+
+[sub_resource type="Animation" id="Animation_4p483"]
+resource_name = "Blur"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.25]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Main:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mc46r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Main:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fluvk"]
+_data = {
+"Blur": SubResource("Animation_4p483"),
+"RESET": SubResource("Animation_mc46r")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vw1k5"]
+shader = ExtResource("1_dq6tx")
+shader_parameter/lod = 0.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qe1qp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_knxym"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kju5w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gudns"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1vrmy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fluvk")
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_vw1k5")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Main" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_sbar0")
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qe1qp")
+text = "Resume"
+
+[node name="SettingsButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_knxym")
+text = "Settings"
+
+[node name="MenuButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kju5w")
+text = "Reset"
+
+[node name="Settings" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_sbar0")
+alignment = 1
+
+[node name="SettingsLabel" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "SETTINGs:"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="Settings/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="MasterSoundLabel" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Master Volume:"
+horizontal_alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="Settings/VBoxContainer"]
+layout_mode = 2
+min_value = -20.0
+max_value = 6.0
+step = 0.2
+
+[node name="SoundsLabel" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sounds Volume:"
+horizontal_alignment = 1
+
+[node name="SoundsSlider" type="HSlider" parent="Settings/VBoxContainer"]
+layout_mode = 2
+min_value = -20.0
+max_value = 6.0
+step = 0.2
+
+[node name="MusicLabel" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Music Volume:"
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="Settings/VBoxContainer"]
+layout_mode = 2
+min_value = -20.0
+max_value = 6.0
+step = 0.2
+
+[node name="HSeparator" type="HSeparator" parent="Settings/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="RestoreToDefaultsButton" type="Button" parent="Settings/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 15
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gudns")
+text = "Restore to defaults"
+
+[node name="HSeparator3" type="HSeparator" parent="Settings/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="Settings/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gudns")
+text = "Back"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_w4t2c")
+bus = &"Sounds"
+
+[connection signal="pressed" from="Main/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="value_changed" from="Settings/VBoxContainer/MasterSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="Settings/VBoxContainer/SoundsSlider" to="." method="_on_sounds_slider_value_changed"]
+[connection signal="value_changed" from="Settings/VBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="pressed" from="Settings/VBoxContainer/RestoreToDefaultsButton" to="." method="_on_restore_to_defaults_button_pressed"]
+[connection signal="pressed" from="Settings/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfm76x4sehs5p"]
+
+[ext_resource type="Script" path="res://Scenes/States/BossStates/BossFastShoot.gd" id="1_eb7kg"]
+[ext_resource type="AudioStream" uid="uid://dsi26tvgyjujp" path="res://Assets/Sounds/laserShoot (1).wav" id="2_ufvh1"]
+
+[node name="BossFastShoot" type="Node"]
+script = ExtResource("1_eb7kg")
+
+[node name="TotalShootingTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="LaserStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ufvh1")
+volume_db = -5.0
+bus = &"Sounds"
+
+[connection signal="timeout" from="TotalShootingTimer" to="." method="_on_total_shooting_timer_timeout"]

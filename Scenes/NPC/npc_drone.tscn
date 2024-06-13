@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://dbpp7g225f7bk"]
+
+[ext_resource type="Script" path="res://Scenes/NPC/npc_drone.gd" id="1_m2oaw"]
+[ext_resource type="Texture2D" uid="uid://c3wpcferb6ev0" path="res://Assets/Sprites/very basic enemy ver 4 x1.png" id="1_qqc0d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7u8a8"]
+atlas = ExtResource("1_qqc0d")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p48n6"]
+atlas = ExtResource("1_qqc0d")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulhj7"]
+atlas = ExtResource("1_qqc0d")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eq8wl"]
+atlas = ExtResource("1_qqc0d")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ryh83"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7u8a8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p48n6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ulhj7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eq8wl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ushxh"]
+radius = 8.0
+height = 16.0
+
+[node name="NPC Drone" type="CharacterBody2D"]
+script = ExtResource("1_m2oaw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_ryh83")
+autoplay = "default"
+frame_progress = 0.303926
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ushxh")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

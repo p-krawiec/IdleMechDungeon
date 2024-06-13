@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxutpwm7irlir"]
+
+[ext_resource type="Texture2D" uid="uid://dvx6m68emwpr1" path="res://Assets/Tileset/props animated normalized.png" id="1_hob8u"]
+[ext_resource type="Script" path="res://Scenes/Props/chair.gd" id="1_hypbr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g8muw"]
+radius = 5.0
+
+[node name="Chair" type="StaticBody2D"]
+script = ExtResource("1_hypbr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("1_hob8u")
+hframes = 24
+vframes = 22
+frame = 179
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_g8muw")

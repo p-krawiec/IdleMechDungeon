@@ -1,0 +1,239 @@
+[gd_scene load_steps=19 format=3 uid="uid://38keyojp4i5v"]
+
+[ext_resource type="Texture2D" uid="uid://dvx6m68emwpr1" path="res://Assets/Tileset/props animated normalized.png" id="1_5xy47"]
+[ext_resource type="Script" path="res://Scenes/Props/door.gd" id="1_s5gos"]
+[ext_resource type="Texture2D" uid="uid://dqqnn7i56s403" path="res://Assets/UI/skills/Upgrade_Player.png" id="3_sldtc"]
+[ext_resource type="AudioStream" uid="uid://d0fbdg4bgkqir" path="res://Assets/Sounds/door_opening.wav" id="4_xscdl"]
+[ext_resource type="PackedScene" uid="uid://iupvlykgxm6r" path="res://Scenes/Util/on_screen_notifier_component.tscn" id="5_2ky7j"]
+
+[sub_resource type="Animation" id="Animation_nqobw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [144]
+}
+
+[sub_resource type="Animation" id="Animation_a1h6m"]
+resource_name = "door_off"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [156]
+}
+
+[sub_resource type="Animation" id="Animation_k21b6"]
+resource_name = "door_on"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [144, 145, 146, 147]
+}
+
+[sub_resource type="Animation" id="Animation_dr1bw"]
+resource_name = "door_open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [168]
+}
+
+[sub_resource type="Animation" id="Animation_05fwv"]
+resource_name = "door_opening"
+length = 3.0
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"door_animation_finished"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rh1wx"]
+_data = {
+"RESET": SubResource("Animation_nqobw"),
+"door_off": SubResource("Animation_a1h6m"),
+"door_on": SubResource("Animation_k21b6"),
+"door_open": SubResource("Animation_dr1bw"),
+"door_opening": SubResource("Animation_05fwv")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ac2g8"]
+size = Vector2(64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhaxb"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_idd11"]
+size = Vector2(14, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4hpk"]
+size = Vector2(64, 20)
+
+[sub_resource type="Animation" id="Animation_klp77"]
+resource_name = "Basic"
+length = 1.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UpgradeTypeSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -28), Vector2(0, -25), Vector2(0, -28)]
+}
+
+[sub_resource type="Animation" id="Animation_rns7i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UpgradeTypeSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -28)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8racr"]
+_data = {
+"Basic": SubResource("Animation_klp77"),
+"RESET": SubResource("Animation_rns7i")
+}
+
+[node name="Door" type="StaticBody2D"]
+script = ExtResource("1_s5gos")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5xy47")
+hframes = 12
+vframes = 22
+frame = 144
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rh1wx")
+}
+
+[node name="ClosedCollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ac2g8")
+
+[node name="EnterArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnterArea"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_vhaxb")
+debug_color = Color(0.701961, 0, 0.407843, 0.419608)
+
+[node name="OpenCollisionShape2" type="CollisionShape2D" parent="."]
+position = Vector2(25, 0)
+shape = SubResource("RectangleShape2D_idd11")
+
+[node name="OpenCollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(-25, 0)
+shape = SubResource("RectangleShape2D_idd11")
+
+[node name="TeleportArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportArea"]
+position = Vector2(0, -17)
+shape = SubResource("RectangleShape2D_s4hpk")
+debug_color = Color(0.117647, 0.701961, 0, 0.419608)
+
+[node name="UpgradeTypeSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -28)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_sldtc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UpgradeTypeSprite"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_8racr")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_xscdl")
+bus = &"Sounds"
+
+[node name="OnScreenNotifierComponent" parent="." instance=ExtResource("5_2ky7j")]
+
+[connection signal="body_entered" from="EnterArea" to="." method="_on_enter_area_body_entered"]
+[connection signal="body_exited" from="EnterArea" to="." method="_on_enter_area_body_exited"]
+[connection signal="body_entered" from="TeleportArea" to="." method="_on_teleport_area_body_entered"]

@@ -1,0 +1,161 @@
+[gd_scene load_steps=20 format=3 uid="uid://bx3lqjh0pah11"]
+
+[ext_resource type="Script" path="res://Scenes/Enemies/BaseEnemy/BaseEnemy.gd" id="1_inti6"]
+[ext_resource type="Texture2D" uid="uid://c254bdlwo1seo" path="res://Assets/Sprites/red basic enemy x1.png" id="2_hrw1e"]
+[ext_resource type="PackedScene" uid="uid://cvpu1xqp8eoab" path="res://Scenes/UI/health_bar_component.tscn" id="3_gwwlu"]
+[ext_resource type="PackedScene" uid="uid://dwplrnex5k4bn" path="res://Scenes/Util/health_component.tscn" id="4_56d0n"]
+[ext_resource type="PackedScene" uid="uid://di5sokfg272jd" path="res://Scenes/Util/hitbox_component.tscn" id="5_2dr5y"]
+[ext_resource type="PackedScene" uid="uid://tpuva6os4x1e" path="res://Scenes/States/EnemyStates/enemy_state_machine.tscn" id="6_wjpdv"]
+[ext_resource type="PackedScene" uid="uid://brh7uvepfqxme" path="res://Scenes/States/EnemyStates/Scenes/enemy_idle.tscn" id="7_m71tm"]
+[ext_resource type="PackedScene" uid="uid://o78hwoxko7hp" path="res://Scenes/States/EnemyStates/Scenes/enemy_spawn.tscn" id="8_37gld"]
+[ext_resource type="PackedScene" uid="uid://dthl60vgvarkb" path="res://Scenes/States/EnemyStates/Scenes/enemy_die.tscn" id="9_u2ioj"]
+[ext_resource type="PackedScene" uid="uid://ci5f4ge6013pu" path="res://Scenes/States/EnemyStates/Scenes/enemy_wander.tscn" id="10_uy4mv"]
+[ext_resource type="PackedScene" uid="uid://vg56xjqy4tq4" path="res://Scenes/States/EnemyStates/Scenes/enemy_follow.tscn" id="11_7gwmt"]
+[ext_resource type="PackedScene" uid="uid://cqs2dcypap161" path="res://Scenes/States/EnemyStates/Scenes/enemy_dash.tscn" id="12_p13xf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mbbtq"]
+radius = 3.0
+height = 8.0
+
+[sub_resource type="Animation" id="Animation_w3h57"]
+resource_name = "Death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 22, 23, 24, 25, 17]
+}
+
+[sub_resource type="Animation" id="Animation_b8nvn"]
+resource_name = "Follow"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_6c2w3"]
+resource_name = "Idle"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_i28mg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ywxsw"]
+_data = {
+"Death": SubResource("Animation_w3h57"),
+"Follow": SubResource("Animation_b8nvn"),
+"Idle": SubResource("Animation_6c2w3"),
+"RESET": SubResource("Animation_i28mg")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8cyo3"]
+radius = 6.0
+
+[node name="DashingEnemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "animation_player", "collision_shape", "hitbox_component", "state_machine") groups=["Enemy"]]
+collision_layer = 512
+collision_mask = 515
+script = ExtResource("1_inti6")
+follow_speed = 75.0
+detection_range = 200.0
+follow_range = 300.0
+wander_speed = 40.0
+sprite = NodePath("Sprite2D")
+animation_player = NodePath("AnimationPlayer")
+collision_shape = NodePath("CollisionShape2D")
+hitbox_component = NodePath("HitboxComponent")
+state_machine = NodePath("EnemyStateMachine")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, -6)
+texture = ExtResource("2_hrw1e")
+hframes = 9
+vframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_mbbtq")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ywxsw")
+}
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_56d0n")]
+max_health = 5
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_2dr5y")]
+collision_layer = 512
+collision_mask = 1280
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_8cyo3")
+debug_color = Color(0.701961, 0, 0, 0.419608)
+
+[node name="HealthBarComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_gwwlu")]
+position = Vector2(0, -15)
+health_component = NodePath("../HealthComponent")
+
+[node name="EnemyStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("6_wjpdv")]
+initial_state = NodePath("EnemySpawn")
+
+[node name="EnemyIdle" parent="EnemyStateMachine" instance=ExtResource("7_m71tm")]
+
+[node name="EnemySpawn" parent="EnemyStateMachine" instance=ExtResource("8_37gld")]
+
+[node name="EnemyDie" parent="EnemyStateMachine" instance=ExtResource("9_u2ioj")]
+
+[node name="EnemyWander" parent="EnemyStateMachine" instance=ExtResource("10_uy4mv")]
+wander_animation_name = "Idle"
+
+[node name="EnemyFollow" parent="EnemyStateMachine" instance=ExtResource("11_7gwmt")]
+follow_animation_name = "Follow"
+
+[node name="EnemyDash" parent="EnemyStateMachine" instance=ExtResource("12_p13xf")]
+dash_range = 150.0
+dash_speed_modifier = 3.0

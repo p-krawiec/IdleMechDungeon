@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnydc8m1rchy5"]
+
+[ext_resource type="Script" path="res://Scenes/UI/upgrade_button.gd" id="1_fyl60"]
+[ext_resource type="Texture2D" uid="uid://cwok487eo8vdt" path="res://Assets/UI/skills/dash_cooldown.png" id="1_l2knv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wmxln"]
+
+[node name="UpgradeButton" type="Button"]
+custom_minimum_size = Vector2(300, 0)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wmxln")
+script = ExtResource("1_fyl60")
+
+[node name="ButtonContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TopSeparator" type="HSeparator" parent="ButtonContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UpgradeName" type="Label" parent="ButtonContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Upgrade Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Icon" type="TextureRect" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+texture = ExtResource("1_l2knv")
+stretch_mode = 5
+
+[node name="UpgradeDescription" type="Label" parent="ButtonContainer"]
+layout_mode = 2
+text = "Upgrade description plus numbers"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="UpgradeChances" type="Label" parent="ButtonContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.501961, 0.501961, 0.501961, 1)
+theme_override_font_sizes/font_size = 15
+text = "(xx-xx%)"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="BotSeparator" type="HSeparator" parent="ButtonContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

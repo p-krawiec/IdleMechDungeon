@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://yv5qucft8q42"]
+
+[ext_resource type="Script" path="res://Scenes/UI/damage_text.gd" id="1_ccexd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6yv1b"]
+font_size = 8
+font_color = Color(1, 1, 1, 0.392157)
+
+[node name="DamageText" type="Node2D"]
+script = ExtResource("1_ccexd")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "DEBUG"
+label_settings = SubResource("LabelSettings_6yv1b")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

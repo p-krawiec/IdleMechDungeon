@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://iupvlykgxm6r"]
+
+[ext_resource type="Script" path="res://Scenes/Util/on_screen_notifier_component.gd" id="1_o5msf"]
+
+[node name="OnScreenNotifierComponent" type="VisibleOnScreenNotifier2D" groups=["Notifier"]]
+script = ExtResource("1_o5msf")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3ll5qs2f1yrg"]
+
+[ext_resource type="Script" path="res://Scenes/Util/shooting_controller.gd" id="1_wjtax"]
+[ext_resource type="AudioStream" uid="uid://5gwiccy3iua" path="res://Assets/Sounds/laserShoot.wav" id="2_i7a2j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y4qng"]
+radius = 75.0
+
+[node name="ShootingController" type="Area2D"]
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("1_wjtax")
+
+[node name="RangeShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_y4qng")
+debug_color = Color(0.537255, 0.701961, 0.490196, 0.419608)
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_i7a2j")
+volume_db = -10.0
+bus = &"Sounds"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

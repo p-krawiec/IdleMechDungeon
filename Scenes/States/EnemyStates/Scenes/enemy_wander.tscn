@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci5f4ge6013pu"]
+
+[ext_resource type="Script" path="res://Scenes/States/EnemyStates/EnemyWander.gd" id="1_rr475"]
+
+[node name="EnemyWander" type="Node"]
+script = ExtResource("1_rr475")
+
+[node name="RandomMoveTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="RandomMoveTimer" to="." method="_on_timer_timeout"]

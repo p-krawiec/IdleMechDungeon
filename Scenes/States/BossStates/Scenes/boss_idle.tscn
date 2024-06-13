@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0w7en73s7tv2"]
+
+[ext_resource type="Script" path="res://Scenes/States/BossStates/BossIdle.gd" id="1_5yj6n"]
+
+[node name="BossIdle" type="Node"]
+script = ExtResource("1_5yj6n")
+
+[node name="PerformActionTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="PerformActionTimer" to="." method="_on_perform_action_timer_timeout"]

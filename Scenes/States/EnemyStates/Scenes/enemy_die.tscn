@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dthl60vgvarkb"]
+
+[ext_resource type="Script" path="res://Scenes/States/EnemyStates/EnemyDie.gd" id="1_f3lo0"]
+[ext_resource type="AudioStream" uid="uid://cv0d3kie6xc6f" path="res://Assets/Sounds/explosion.wav" id="2_6odeg"]
+
+[node name="EnemyDie" type="Node"]
+script = ExtResource("1_f3lo0")
+
+[node name="ExplosionStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_6odeg")
+bus = &"Sounds"
