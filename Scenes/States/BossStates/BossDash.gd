@@ -161,5 +161,6 @@ func _on_dash_charge_timer_timeout():
 	
 
 func _on_dash_duration_timer_timeout():
-	if ((get_parent() as BossStateMachine).current_state == self):
-		transition_to.emit(self, "BossIdle")
+	if not (get_parent() as BossStateMachine).is_current_state_equal("BossDie"):
+		if ((get_parent() as BossStateMachine).current_state == self):
+			transition_to.emit(self, "BossIdle")

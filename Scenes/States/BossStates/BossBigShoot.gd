@@ -90,5 +90,6 @@ func shoot_bullets(shooting_angle, projectile_speed, number_of_bullets):
 
 
 func _on_third_phase_shooting_timer_timeout():
-	parent.body_animation_player.stop()
-	transition_to.emit(self, "BossIdle")
+	if not (get_parent() as BossStateMachine).is_current_state_equal("BossDie"):
+		parent.body_animation_player.stop()
+		transition_to.emit(self, "BossIdle")

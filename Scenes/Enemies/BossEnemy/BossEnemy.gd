@@ -46,6 +46,9 @@ func _process(_delta):
 	var current_health = (health_component as HealthComponent).current_health
 	var max_health = (health_component as HealthComponent).max_health
 	
+	if current_health <= 0:
+		return
+	
 	if current_health <= max_health * third_phase_threshold:
 		if current_phase != 3:
 			current_phase = 3
@@ -86,14 +89,15 @@ func change_to_walking():
 	$HitboxComponent/FlyingCollisionShape.set_deferred("disabled", true)
 	$StepAudioPlayer.volume_db = -5
 	set_collision_mask_value(2, true)
-
+	
 	make_hostile()
 
 func _on_legs_animation_player_animation_finished(anim_name):
-	if anim_name == "Hide":
-		change_to_flying()
-	elif anim_name == "Show":
-		change_to_walking()
+	if not state_machine.is_current_state_equal("BossDie"):
+		if anim_name == "Hide":
+			change_to_flying()
+		elif anim_name == "Show":
+			change_to_walking()
 
 func _on_hitbox_component_area_entered(area):
 	if area is HitboxComponent:
@@ -112,3 +116,7 @@ func make_passive():
 	(state_machine as BossStateMachine).stop_performing_actions()
 	set_collision_layer_value(4, false)
 	notifier.should_be_visible = false
+
+func on_death():
+	make_passive()
+	state_machine.die()

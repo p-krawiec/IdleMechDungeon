@@ -42,8 +42,6 @@ func update(_delta):
 	if not perform_action:
 		return
 	
-	transition_to.emit(self, "BossBigShoot")
-	
 	distance_to_player = get_distance_to_player()
 	if distance_to_player <= perform_action_range:
 		var random_action = randi() % 3

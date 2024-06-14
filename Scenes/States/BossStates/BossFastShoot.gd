@@ -76,4 +76,5 @@ func shoot_bullet():
 	laser_stream_player.play()
 
 func _on_total_shooting_timer_timeout():
-	transition_to.emit(self, "BossIdle")
+	if not (get_parent() as BossStateMachine).is_current_state_equal("BossDie"):
+		transition_to.emit(self, "BossIdle")

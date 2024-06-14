@@ -27,7 +27,8 @@ func _ready():
 func _physics_process(delta):
 	if current_state:
 		current_state.physics_update(delta)
-		(current_state as BossState).process_follow()
+		if not is_current_state_equal("BossDie"):
+			(current_state as BossState).process_follow()
 
 func stop_performing_actions():
 	var bossIdleState = (states.get("BossIdle".to_lower()) as BossIdle)
