@@ -28,3 +28,18 @@ func _physics_process(delta):
 	if current_state:
 		current_state.physics_update(delta)
 		(current_state as BossState).process_follow()
+
+func stop_performing_actions():
+	var bossIdleState = (states.get("BossIdle".to_lower()) as BossIdle)
+	bossIdleState.can_perform_actions = false
+	(bossIdleState.perform_action_timer as Timer).stop()
+	bossIdleState.perform_action = false
+
+func allow_performing_actions():
+	var bossIdleState = (states.get("BossIdle".to_lower()) as BossIdle)
+	bossIdleState.can_perform_actions = true
+	if (bossIdleState.perform_action_timer as Timer).is_stopped():
+		(bossIdleState.perform_action_timer as Timer).start()
+
+func is_current_state_equal(state_name):
+	return current_state == states.get(state_name.to_lower())

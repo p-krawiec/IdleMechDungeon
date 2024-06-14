@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/UI/hud.gd" id="1_nvlj3"]
 [ext_resource type="FontFile" uid="uid://yv0f1wvan643" path="res://Assets/UI/INVASION2000.TTF" id="1_o7kul"]
-[ext_resource type="Texture2D" uid="uid://u1tiv0vy4433" path="res://Assets/UI/health bar outline x1.png" id="3_15gki"]
+[ext_resource type="PackedScene" uid="uid://dac824o764scs" path="res://Scenes/UI/boss_health_bar.tscn" id="3_ee67n"]
 
 [sub_resource type="Animation" id="Animation_ldihm"]
 length = 0.001
@@ -205,16 +205,15 @@ libraries = {
 "": SubResource("AnimationLibrary_qrhui")
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="BossHealthBar" parent="." instance=ExtResource("3_ee67n")]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -376.0
-offset_right = 376.0
-offset_bottom = -50.0
-grow_horizontal = 2
+offset_left = -301.0
+offset_top = -148.0
+offset_right = 299.0
+offset_bottom = -48.0
 grow_vertical = 0
-texture = ExtResource("3_15gki")

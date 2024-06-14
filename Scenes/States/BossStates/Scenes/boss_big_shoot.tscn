@@ -10,3 +10,8 @@ script = ExtResource("1_tsd1x")
 stream = ExtResource("2_p377i")
 volume_db = -5.0
 bus = &"Sounds"
+
+[node name="ThirdPhaseShootingTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ThirdPhaseShootingTimer" to="." method="_on_third_phase_shooting_timer_timeout"]

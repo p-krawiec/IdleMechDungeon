@@ -21,17 +21,21 @@ class_name BossBigShoot
 @export var number_of_bullets_3 = 11
 @export var shooting_angle_3 = 120.0
 @export var projectile_speed_3 = 150
-
+@export var shooting_time = 3.0
 
 @onready var laser_stream_player = $LaserStreamPlayer
+@onready var third_phase_shooting_timer = $ThirdPhaseShootingTimer
 
 var bullet_scene = preload("res://Scenes/Enemies/EnemyBullet/enemy_bullet.tscn")
 
 func enter():
+	third_phase_shooting_timer.wait_time = shooting_time
 	
 	if not parent.body_animation_player.is_connected("animation_finished", on_shoot_animation_finished):
 		parent.body_animation_player.connect("animation_finished", on_shoot_animation_finished)
 	parent.body_animation_player.play("Shoot_Big_Part1")
+	if parent.current_phase == 3:
+		third_phase_shooting_timer.start()
 
 func on_shoot_animation_finished(anim_name: StringName):
 	match parent.current_phase:
@@ -83,3 +87,8 @@ func shoot_bullets(shooting_angle, projectile_speed, number_of_bullets):
 		
 		get_tree().get_first_node_in_group("GameMain").add_child(bullet)
 		laser_stream_player.play()
+
+
+func _on_third_phase_shooting_timer_timeout():
+	parent.body_animation_player.stop()
+	transition_to.emit(self, "BossIdle")

@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://dac824o764scs"]
+
+[ext_resource type="Texture2D" uid="uid://etgbqkj0alw7" path="res://Assets/UI/boss_healthbar.png" id="1_4kk0r"]
+[ext_resource type="Script" path="res://Scenes/UI/boss_health_bar.gd" id="2_o37aq"]
+[ext_resource type="FontFile" uid="uid://c46se1ng4idp" path="res://Assets/UI/joystix monospace.otf" id="2_qy3df"]
+
+[sub_resource type="Animation" id="Animation_upto5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7do65"]
+resource_name = "Show"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ip3ed"]
+_data = {
+"RESET": SubResource("Animation_upto5"),
+"Show": SubResource("Animation_7do65")
+}
+
+[node name="BossHealthBar" type="Control"]
+layout_mode = 3
+anchor_right = 0.521
+anchor_bottom = 0.063
+offset_left = -300.0
+offset_top = -100.0
+offset_right = -300.192
+offset_bottom = -99.824
+grow_horizontal = 2
+script = ExtResource("2_o37aq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -5
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qy3df")
+theme_override_font_sizes/font_size = 16
+text = "Big Bad Boss"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Control"]
+layout_mode = 2
+anchor_right = 0.517
+offset_left = 18.0
+offset_top = 10.0
+offset_right = 271.8
+offset_bottom = 21.0
+color = Color(0.69, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Control"]
+layout_mode = 2
+offset_right = 600.0
+offset_bottom = 32.0
+texture = ExtResource("1_4kk0r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ip3ed")
+}

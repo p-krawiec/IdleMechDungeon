@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqjdhuxgubx7e"]
+[gd_scene load_steps=5 format=3 uid="uid://bqjdhuxgubx7e"]
 
 [ext_resource type="Script" path="res://Scenes/Rooms/BossRoom/boss_room.gd" id="1_abfwu"]
 [ext_resource type="TileSet" uid="uid://cx3lf2a1uoeoy" path="res://Assets/Tileset/RoomTileSet.tres" id="2_5v5ml"]
 [ext_resource type="PackedScene" uid="uid://dlyx5ot03gmvr" path="res://Scenes/Enemies/BossEnemy/boss_enemy.tscn" id="3_2uy11"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5k38"]
+size = Vector2(65, 32)
 
 [node name="BossRoom" type="Node2D"]
 script = ExtResource("1_abfwu")
@@ -49,7 +52,10 @@ layer_5/z_index = 0
 layer_5/tile_data = PackedInt32Array(-2686969, 2293761, 2, -2686968, 2293761, 2, -2686967, 2293761, 2, -2686966, 2293761, 2, -2621433, 2293761, 3, -2621432, 2293761, 3, -2621431, 2293761, 3, -2621430, 2293761, 3)
 
 [node name="SpawnPoint" type="Node2D" parent="."]
-position = Vector2(295, -1644)
+position = Vector2(288, -1209)
+
+[node name="BossCutscenePlayerPosition" type="Node2D" parent="."]
+position = Vector2(289, -1648)
 
 [node name="ArenaCenter" type="Node2D" parent="."]
 position = Vector2(289, -1728)
@@ -62,4 +68,15 @@ collision_mask = 8
 polygon = PackedVector2Array(64, -2152, 516, -2150, 712, -1954, 714, -1500, 518, -1307, 61, -1304, -134, -1502, -134, -1959, 56, -2148, -71, -2290, -354, -1972, -362, -1499, -35, -1139, 566, -1127, 882, -1476, 882, -1999, 590, -2293, -67, -2292)
 
 [node name="BossEnemy" parent="." instance=ExtResource("3_2uy11")]
-position = Vector2(340, -1705)
+position = Vector2(288, -1888)
+is_following_player = false
+
+[node name="BossCutsceneStartArea" type="Area2D" parent="."]
+position = Vector2(288, -1321)
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossCutsceneStartArea"]
+position = Vector2(0.5, -6)
+shape = SubResource("RectangleShape2D_f5k38")
+
+[connection signal="body_entered" from="BossCutsceneStartArea" to="." method="_on_boss_cutscene_start_area_body_entered"]

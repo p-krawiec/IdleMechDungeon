@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dlyx5ot03gmvr"]
+[gd_scene load_steps=36 format=3 uid="uid://dlyx5ot03gmvr"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/BossEnemy/BossEnemy.gd" id="1_bpiwb"]
 [ext_resource type="Texture2D" uid="uid://u0nkseda1ywf" path="res://Assets/Sprites/boss outlines v2 x1.png" id="2_r0bhk"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://bwctilfb80std" path="res://Scenes/States/BossStates/Scenes/boss_dash.tscn" id="10_5lomw"]
 [ext_resource type="PackedScene" uid="uid://dwplrnex5k4bn" path="res://Scenes/Util/health_component.tscn" id="11_8nbpy"]
 [ext_resource type="PackedScene" uid="uid://di5sokfg272jd" path="res://Scenes/Util/hitbox_component.tscn" id="12_irtf4"]
+[ext_resource type="AudioStream" uid="uid://cqm8dsr8kdq3j" path="res://Assets/Sounds/boss_step2.wav" id="13_0uw36"]
+[ext_resource type="AudioStream" uid="uid://m01sf4n26v0m" path="res://Assets/Sounds/boss_change.wav" id="14_e4cr8"]
 
 [sub_resource type="Animation" id="Animation_52q01"]
 resource_name = "Death"
@@ -266,6 +268,62 @@ tracks/1/keys = {
 "values": [85, 86, 87, 88]
 }
 
+[sub_resource type="Animation" id="Animation_drb4q"]
+resource_name = "Shoot_Fast_Part1"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [85, 86]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OutlineSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [85, 86]
+}
+
+[sub_resource type="Animation" id="Animation_kyqnm"]
+resource_name = "Shoot_Fast_Part2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [87, 88]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OutlineSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [87, 88]
+}
+
 [sub_resource type="Animation" id="Animation_0nnw8"]
 resource_name = "Shoot_Flame"
 length = 0.9
@@ -322,62 +380,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [34, 35, 36, 37, 38, 39, 40, 41]
-}
-
-[sub_resource type="Animation" id="Animation_drb4q"]
-resource_name = "Shoot_Fast_Part1"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [85, 86]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("OutlineSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [85, 86]
-}
-
-[sub_resource type="Animation" id="Animation_kyqnm"]
-resource_name = "Shoot_Fast_Part2"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BodySprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [87, 88]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("OutlineSprite:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [87, 88]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ah38x"]
@@ -457,6 +459,20 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [5]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LegChangeStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_1m6i8"]
@@ -625,6 +641,20 @@ tracks/4/keys = {
 "update": 1,
 "values": [5]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LegChangeStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_7f88m"]
 resource_name = "Walk"
@@ -653,6 +683,23 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [43, 44, 45, 46, 47, 48, 49, 50]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StepAudioPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fn2kc"]
@@ -728,23 +775,36 @@ script = ExtResource("6_nnom5")
 initial_state = NodePath("BossIdle")
 
 [node name="BossIdle" parent="BossStateMachine" instance=ExtResource("7_qfi6h")]
+perform_action_range_1 = 300
+perform_action_cooldown_2 = 1.5
+perform_action_cooldown_3 = 1.5
+perform_action_range_3 = 400
 
 [node name="BossBigShoot" parent="BossStateMachine" instance=ExtResource("8_8wvuj")]
 number_of_bullets_2 = 15
 shooting_angle_2 = 150.0
 projectile_speed_2 = 200
+number_of_bullets_3 = 17
+shooting_angle_3 = 170.0
+projectile_speed_3 = 200
+shooting_time = 2.0
 
 [node name="BossFastShoot" parent="BossStateMachine" instance=ExtResource("9_5di0o")]
 projectile_speed_1 = 300
+projectile_speed_3 = 350
+total_shooting_time_3 = 8.0
 
 [node name="BossDash" parent="BossStateMachine" instance=ExtResource("10_5lomw")]
-dash_speed_modifier = 10.0
-dash_charge_time = 1.0
-dashing_time = 2.0
-follow_player_while_dashing = true
+dash_speed_modifier_1 = 10.0
+dash_charge_time_1 = 1.0
+dash_speed_modifier_2 = 10.0
+follow_player_while_dashing_2 = false
+dash_charge_time_2 = 0.7
+dash_speed_modifier_3 = 12.0
+dashing_time_3 = 1.5
 
 [node name="HealthComponent" parent="." instance=ExtResource("11_8nbpy")]
-max_health = 100
+max_health = 20
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("12_irtf4")]
 collision_layer = 8
@@ -760,6 +820,16 @@ position = Vector2(3, -9)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_loltv")
 debug_color = Color(0.556863, 0.4, 1, 0.419608)
+
+[node name="StepAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_0uw36")
+volume_db = -5.0
+bus = &"Sounds"
+
+[node name="LegChangeStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_e4cr8")
+volume_db = -5.0
+bus = &"Sounds"
 
 [connection signal="animation_finished" from="LegsAnimationPlayer" to="." method="_on_legs_animation_player_animation_finished"]
 [connection signal="area_entered" from="HitboxComponent" to="." method="_on_hitbox_component_area_entered"]

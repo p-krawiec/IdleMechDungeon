@@ -17,8 +17,8 @@ func process_follow():
 	if not parent.is_following_player:
 		return
 	
-	handle_sprite_flip()
 	handle_leg_animations()
+	handle_sprite_flip()
 	
 	move_speed = get_correct_move_speed()
 

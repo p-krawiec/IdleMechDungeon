@@ -1,25 +1,48 @@
 extends BossState
 class_name BossIdle
 
-@export var perform_action_cooldown = 2.0
-@export var perform_action_range = 300
+@export_category("First Phase")
+@export var perform_action_cooldown_1 = 2.0
+@export var perform_action_range_1 = 350
+
+@export_category("Second Phase")
+@export var perform_action_cooldown_2 = 2.0
+@export var perform_action_range_2 = 350
+
+@export_category("Third Phase")
+@export var perform_action_cooldown_3 = 2.0
+@export var perform_action_range_3 = 350
 
 @onready var perform_action_timer = $PerformActionTimer
 
-var can_perform_action = false
+var perform_action_range: float
+var can_perform_actions = false
+var perform_action = false
 
 var big_shoot_range: float
 var fast_shoot_range: float
 
 func enter():
-	can_perform_action = false
-	perform_action_timer.wait_time = perform_action_cooldown
-	perform_action_timer.start()
+	perform_action = false
+	match parent.current_phase:
+		1:
+			perform_action_timer.wait_time = perform_action_cooldown_1
+			perform_action_range = perform_action_range_1
+		2:
+			perform_action_timer.wait_time = perform_action_cooldown_2
+			perform_action_range = perform_action_range_2
+		3:
+			perform_action_timer.wait_time = perform_action_cooldown_3
+			perform_action_range = perform_action_range_3
+	
+	if can_perform_actions:
+		perform_action_timer.start()
 
 func update(_delta):
-	if not can_perform_action:
+	if not perform_action:
 		return
 	
+	transition_to.emit(self, "BossBigShoot")
 	
 	distance_to_player = get_distance_to_player()
 	if distance_to_player <= perform_action_range:
@@ -44,4 +67,7 @@ func play_walk_animation():
 		parent.body_animation_player.play("Walk")
 
 func _on_perform_action_timer_timeout():
-	can_perform_action = true
+	if can_perform_actions:
+		perform_action = true
+	else:
+		perform_action = false

@@ -228,3 +228,9 @@ func increase_attack_speed(value):
 	emit_upgrade_particles("general", Color.LIGHT_GREEN)
 	attack_speed *= (1.0 + (float(value) / 100.0))
 	(shooting_controller as ShootingController).recalculate_shooting_stats()
+
+func disable_hitboxes():
+	hitbox_component.set_collision_layer_value(9, false)
+	hitbox_component.set_collision_mask_value(4, false)
+	hitbox_component.set_collision_mask_value(10, false)
+	hitbox_component.set_collision_mask_value(12, false)
