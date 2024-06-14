@@ -17,7 +17,7 @@ func get_distance_to_player():
 func process_follow():
 	if not parent.is_following_player:
 		return
-	
+		
 	handle_leg_animations()
 	handle_sprite_flip()
 	

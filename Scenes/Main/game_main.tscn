@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c3joihl7fdgh"]
+[gd_scene load_steps=15 format=3 uid="uid://c3joihl7fdgh"]
 
 [ext_resource type="Script" path="res://Scenes/Main/game_main.gd" id="1_jypea"]
 [ext_resource type="PackedScene" uid="uid://cnmupx75q65fy" path="res://Scenes/Player/player.tscn" id="2_d4gkh"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://lgny2mfaqlq8" path="res://Scenes/Rooms/room_8.tscn" id="10_hkulc"]
 [ext_resource type="PackedScene" uid="uid://bwrv8u0gx6bqb" path="res://Scenes/UI/pause_menu.tscn" id="13_ru5h6"]
 [ext_resource type="PackedScene" uid="uid://epqrumrbn476" path="res://Scenes/UI/hud.tscn" id="14_pw27n"]
+[ext_resource type="PackedScene" uid="uid://dlggcpe3tfpdl" path="res://Scenes/UI/game_over_screen.tscn" id="14_pwc0l"]
 [ext_resource type="PackedScene" uid="uid://0l8b0xou8cr5" path="res://Scenes/UI/touch_ui.tscn" id="18_o4po8"]
 
 [node name="GameMain" type="Node" groups=["GameMain"]]
@@ -40,3 +41,5 @@ player = NodePath("../../Entities/Player")
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("13_ru5h6")]
 
 [node name="TouchUI" parent="CanvasLayer" instance=ExtResource("18_o4po8")]
+
+[node name="GameOverScreen" parent="CanvasLayer" instance=ExtResource("14_pwc0l")]

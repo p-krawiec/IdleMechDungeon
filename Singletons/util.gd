@@ -52,3 +52,13 @@ func reset_play_time():
 func update_play_time(delta):
 	if not play_time_stopped:
 		play_time += delta * 1000
+
+func get_formatted_time() -> String:
+	var time = Util.play_time
+	time = floor(time)
+	var minutes = int(time / 1000 / 60)
+	var seconds = int(time / 1000) % 60
+	var ms = (int(time) % 1000) / 10.0
+	
+	var formatted_time = ("%02d" % minutes) + (":%02d" % seconds) + (":%02d" % ms)
+	return str(formatted_time)

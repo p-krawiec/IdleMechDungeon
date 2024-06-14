@@ -39,6 +39,7 @@ var direction = Vector2.ZERO
 var current_state = Util.PlayerState.IDLE
 var dash_boost = 1
 var dash_timer = 0.0
+var is_dead = false
 
 func handle_keyboard_input():
 	if allow_input:
@@ -61,6 +62,9 @@ func handle_joystick_input():
 		direction = (touch_ui as TouchUI).direction
 
 func _physics_process(delta):
+	if is_dead:
+		return
+		
 	handle_keyboard_input()
 	handle_joystick_input()
 	
@@ -126,10 +130,14 @@ func on_death():
 	allow_input = false
 	direction = Vector2.ZERO
 	top_level = true
+	disable_hitboxes()
 	change_state_to(Util.PlayerState.DIE)
 	
 func finish_dying():
-	get_tree().reload_current_scene()
+#	get_tree().reload_current_scene()
+	(get_tree().get_first_node_in_group("GameOverScreen") as GameOverScreen).display_screen_game_over()
+	is_dead = true
+	
 
 func handle_dash_bar():
 	if dash_timer == 0:

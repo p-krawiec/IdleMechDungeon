@@ -73,14 +73,7 @@ func recalculate_golden_hearts():
 		i -= 1
 
 func display_time():
-	var time = Util.play_time
-	time = floor(time)
-	var minutes = int(time / 1000 / 60)
-	var seconds = int(time / 1000) % 60
-	var ms = (int(time) % 1000) / 10.0
-	
-	var label = ("%02d" % minutes) + (":%02d" % seconds) + (":%02d" % ms)
-	time_label.text = str(label)
+	time_label.text = Util.get_formatted_time()
 	
 func display_ammo():
 	var i = 1
@@ -129,3 +122,6 @@ func display_reload():
 func display_wave_text(text):
 	$WaveLabel.text = text
 	$WaveLabel/AnimationPlayer.play("Fade_out")
+
+func play_cinematic_animation(anim_name):
+	$CinematicAnimationPlayer.play(anim_name)

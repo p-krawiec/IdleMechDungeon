@@ -28,6 +28,7 @@ func get_spawn_global_position() -> Vector2:
 func _on_boss_cutscene_start_area_body_entered(body):
 	if body is Player:
 		boss_cutscene_initiated = true
+		(get_tree().get_first_node_in_group("HUD") as HUD).play_cinematic_animation("In")
 		player.allow_input = false
 		boss_cutscene_start_area.queue_free()
 	
@@ -65,5 +66,6 @@ func move_boss_towards_player():
 			boss_fight_started = true
 			player.allow_input = true
 			(get_tree().get_first_node_in_group("HUD") as HUD).display_wave_text("FIGHT!")
+			(get_tree().get_first_node_in_group("HUD") as HUD).play_cinematic_animation("Out")
 			Util.play_time_stopped = false
 	
