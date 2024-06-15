@@ -17,7 +17,6 @@ func display_screen_game_over():
 	$AnimationPlayer.play("Blur")
 	show()
 	player.allow_input = false
-	get_tree().paused = true
 	
 func display_screen_game_won():
 	$VBoxContainer/TimeLabel.show()
@@ -28,7 +27,7 @@ func display_screen_game_won():
 	$AnimationPlayer.play("Blur")
 	show()
 	player.allow_input = false
-	get_tree().paused = true
+	MusicPlayer.fade_in_music(1)
 
 func _on_restart_button_pressed():
 	get_tree().reload_current_scene()

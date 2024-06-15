@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://b1bse167pj3hn"]
+
+[ext_resource type="Script" path="res://Scenes/Enemies/BaseEnemy/BaseEnemy.gd" id="1_crrj2"]
+[ext_resource type="Texture2D" uid="uid://c3wpcferb6ev0" path="res://Assets/Sprites/very basic enemy ver 4 x1.png" id="2_kknqi"]
+[ext_resource type="PackedScene" uid="uid://tpuva6os4x1e" path="res://Scenes/States/EnemyStates/enemy_state_machine.tscn" id="2_svvry"]
+[ext_resource type="Script" path="res://Scenes/States/EnemyStates/EnemyIdle.gd" id="3_y5t2b"]
+[ext_resource type="PackedScene" uid="uid://ci5f4ge6013pu" path="res://Scenes/States/EnemyStates/Scenes/enemy_wander.tscn" id="4_nvtwx"]
+
+[sub_resource type="Animation" id="Animation_01nio"]
+resource_name = "Idle"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_ddbw4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qqw60"]
+_data = {
+"Idle": SubResource("Animation_01nio"),
+"RESET": SubResource("Animation_ddbw4")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q1xu4"]
+radius = 8.0
+height = 16.0
+
+[node name="NPC Basic Enemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "animation_player", "collision_shape", "state_machine")]
+collision_mask = 3
+script = ExtResource("1_crrj2")
+wander_speed = 15.0
+sprite = NodePath("Sprite2D")
+animation_player = NodePath("AnimationPlayer")
+collision_shape = NodePath("CollisionShape2D")
+state_machine = NodePath("EnemyStateMachine")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_kknqi")
+hframes = 9
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qqw60")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_q1xu4")
+
+[node name="EnemyStateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("2_svvry")]
+initial_state = NodePath("EnemyIdle")
+
+[node name="EnemyIdle" type="Node" parent="EnemyStateMachine"]
+script = ExtResource("3_y5t2b")
+
+[node name="EnemyWander" parent="EnemyStateMachine" instance=ExtResource("4_nvtwx")]
+wander_animation_name = "Idle"
+wander_chance = 0.8

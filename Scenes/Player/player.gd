@@ -131,11 +131,13 @@ func on_death():
 	direction = Vector2.ZERO
 	top_level = true
 	disable_hitboxes()
+	Util.play_time_stopped = true
 	change_state_to(Util.PlayerState.DIE)
 	
 func finish_dying():
 #	get_tree().reload_current_scene()
 	(get_tree().get_first_node_in_group("GameOverScreen") as GameOverScreen).display_screen_game_over()
+	MusicPlayer.mute_music()
 	is_dead = true
 	
 

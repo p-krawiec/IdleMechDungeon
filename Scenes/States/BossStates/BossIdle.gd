@@ -39,7 +39,7 @@ func enter():
 		perform_action_timer.start()
 
 func update(_delta):
-	if not perform_action:
+	if not perform_action or player.is_dead:
 		return
 	
 	distance_to_player = get_distance_to_player()

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="IdleMechDungeon"
-run/main_scene="res://Scenes/Main/game_main.tscn"
+run/main_scene="res://Scenes/Main/main_menu.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 boot_splash/bg_color=Color(0.129412, 0.14902, 0.180392, 1)
 config/icon="res://Assets/UI/icon v2.png"

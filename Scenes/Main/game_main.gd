@@ -11,6 +11,10 @@ var current_room_number = 0
 
 func _ready():
 	Util.reset_play_time()
+	
+	MusicPlayer.fade_in_music(0.5)
+	MusicPlayer.pick_random_track()
+	
 	player = get_tree().get_first_node_in_group("Player") as Player
 	player.allow_input = false
 	

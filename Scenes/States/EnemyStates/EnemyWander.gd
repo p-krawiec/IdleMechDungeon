@@ -32,6 +32,10 @@ func physics_update(_delta):
 
 func handle_movement():
 	parent.direction = random_direction
+	
+	if not player or player.is_dead:
+		decide_what_to_do()
+		return
 
 	distance_to_player = get_distance_to_player()
 	if has_follow_state and distance_to_player <= parent.detection_range:

@@ -30,6 +30,7 @@ func _on_boss_cutscene_start_area_body_entered(body):
 		boss_cutscene_initiated = true
 		(get_tree().get_first_node_in_group("HUD") as HUD).play_cinematic_animation("In")
 		player.allow_input = false
+		MusicPlayer.fade_out_music(5)
 		boss_cutscene_start_area.queue_free()
 	
 func _physics_process(_delta):
@@ -48,6 +49,7 @@ func move_player_towards_boss():
 	else:
 		player.direction = Vector2.ZERO
 		boss_meetup_position_reached = true
+		$TileMap.set_layer_enabled(5, true)
 	
 
 func move_boss_towards_player():
@@ -66,6 +68,10 @@ func move_boss_towards_player():
 			boss_fight_started = true
 			player.allow_input = true
 			(get_tree().get_first_node_in_group("HUD") as HUD).display_wave_text("FIGHT!")
+		
+			MusicPlayer.fade_in_music(1)
+			MusicPlayer.change_music_to("BossBattle")
+		
 			(get_tree().get_first_node_in_group("HUD") as HUD).play_cinematic_animation("Out")
 			Util.play_time_stopped = false
 	

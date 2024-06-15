@@ -10,7 +10,6 @@ func _ready():
 	
 	$Main.hide()
 	$Settings.hide()
-	set_sliders()
 
 func _physics_process(_delta):
 	testEsc()
@@ -56,57 +55,13 @@ func _on_settings_button_pressed():
 	$AudioStreamPlayer2D.play()
 
 func _on_menu_button_pressed():
-	get_tree().reload_current_scene()
-	resume()
-
-
-func _on_back_button_pressed():
-	$Main.show()
-	$Settings.hide()
+	get_tree().paused = false
 	$AudioStreamPlayer2D.play()
-
-func set_sliders():
-	if AudioServer.is_bus_mute(0):
-		$Settings/VBoxContainer/MasterSlider.value = -20
-	else:
-		$Settings/VBoxContainer/MasterSlider.value = AudioServer.get_bus_volume_db(0)
-		
-	if AudioServer.is_bus_mute(2):
-		$Settings/VBoxContainer/SoundsSlider.value = -20
-	else:
-		$Settings/VBoxContainer/SoundsSlider.value = AudioServer.get_bus_volume_db(2)
-		
-	if AudioServer.is_bus_mute(1):
-		$Settings/VBoxContainer/MusicSlider.value = -20
-	else:
-		$Settings/VBoxContainer/MusicSlider.value = AudioServer.get_bus_volume_db(1)
-
-func _on_master_slider_value_changed(value):
-	if value == -20:
-		AudioServer.set_bus_mute(0, true)
-	else:
-		AudioServer.set_bus_mute(0, false)
-		AudioServer.set_bus_volume_db(0, value)
+	get_tree().change_scene_to_file("res://Scenes/Main/main_menu.tscn")
 
 
-func _on_sounds_slider_value_changed(value):
-	if value == -20:
-		AudioServer.set_bus_mute(2, true)
-	else:
-		AudioServer.set_bus_mute(2, false)
-		AudioServer.set_bus_volume_db(2, value)
-
-
-func _on_music_slider_value_changed(value):
-	if value == -20:
-		AudioServer.set_bus_mute(1, true)
-	else:
-		AudioServer.set_bus_mute(1, false)
-		AudioServer.set_bus_volume_db(1, value)
-
-
-func _on_restore_to_defaults_button_pressed():
-	AudioServer.set_bus_volume_db(0, 0)
-	AudioServer.set_bus_volume_db(1, 0)
-	AudioServer.set_bus_volume_db(2, 0)
-	set_sliders()
+func _on_inside_settings_button_pressed(button_name):
+	if button_name == "Back":
+		$Main.show()
+		$Settings.hide()
+	$AudioStreamPlayer2D.play()

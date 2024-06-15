@@ -39,6 +39,10 @@ func physics_update(_delta):
 	parent.move_and_slide()
 	
 func handle_movement():
+	if player.is_dead:
+		transition_to.emit(self, "EnemyIdle")
+		return
+	
 	distance_to_player = get_distance_to_player()
 	
 	if player and (distance_to_player <= parent.follow_range):

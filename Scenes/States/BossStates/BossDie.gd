@@ -3,7 +3,7 @@ class_name BossDie
 
 func enter():
 	Util.play_time_stopped = true
-	MusicPlayer.stop()
+	MusicPlayer.mute_music()
 	player.disable_hitboxes()
 #	parent.legs_sprite.visible = false
 #	parent.shadows_sprite = false

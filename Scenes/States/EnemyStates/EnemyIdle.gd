@@ -21,6 +21,10 @@ func enter():
 	has_follow_state = (get_parent() as EnemyStateMachine).has_state("EnemyFollow")
 	
 func update(_delta):
+	if not player or player.is_dead:
+		decide_what_to_do()
+		return
+	
 	distance_to_player = get_distance_to_player()
 	if has_follow_state and distance_to_player <= parent.detection_range:
 		transition_to.emit(self, "EnemyFollow")

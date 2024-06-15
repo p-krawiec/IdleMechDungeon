@@ -114,6 +114,10 @@ func display_golden_health():
 			heart.queue_free()
 
 func display_reload():
+	if player.is_dead:
+		reload_label.visible = false
+		return
+	
 	if player.current_ammo != 0:
 		reload_label.visible = false
 	else:

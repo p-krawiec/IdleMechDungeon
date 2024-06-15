@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cnmupx75q65fy"]
+[gd_scene load_steps=21 format=3 uid="uid://cnmupx75q65fy"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_3g2hp"]
 [ext_resource type="Texture2D" uid="uid://31bsv84q6l7k" path="res://Assets/Sprites/players blue x1.png" id="1_yui2f"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://cini6h0fikomb" path="res://Assets/Sounds/footstep.wav" id="7_vfc8o"]
 [ext_resource type="AudioStream" uid="uid://dx18oyr3gfn18" path="res://Assets/Sounds/dash v2.wav" id="8_7arkl"]
 [ext_resource type="Texture2D" uid="uid://bvyq2k4l1gss6" path="res://Assets/UI/particles/random.png" id="9_5evfo"]
+[ext_resource type="AudioStream" uid="uid://cv0d3kie6xc6f" path="res://Assets/Sounds/explosion.wav" id="9_sfspk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rnajb"]
 radius = 5.0
@@ -40,6 +41,20 @@ tracks/1/keys = {
 "values": [{
 "args": [],
 "method": &"finish_dying"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DeathStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
 }]
 }
 
@@ -490,6 +505,11 @@ volume_db = -10.0
 bus = &"Sounds"
 
 [node name="UpgradeStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sounds"
+
+[node name="DeathStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_sfspk")
+volume_db = 5.0
 bus = &"Sounds"
 
 [node name="UpgradeParticleEffect" type="CPUParticles2D" parent="."]

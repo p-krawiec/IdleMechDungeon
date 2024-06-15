@@ -10,8 +10,6 @@ class_name BaseEnemy
 @export var detection_range = 100.0
 @export var follow_range = 150.0
 @export var wander_speed = 50.0
-@export var base_wander_time = 1.5
-@export var wander_chance = 0.66
 
 @export_category("Nodes")
 @export var sprite: Sprite2D
@@ -27,11 +25,12 @@ var direction = Vector2.ZERO
 func _ready():
 	sprite.flip_h = (randi() % 2)
 	
-	hitbox_component.connect("area_entered", _on_hitbox_component_area_entered)
-	
-	var notifier = notifier_scene.instantiate()
-	notifier.color = Color.FIREBRICK
-	add_child(notifier)
+	if hitbox_component:
+		hitbox_component.connect("area_entered", _on_hitbox_component_area_entered)
+		
+		var notifier = notifier_scene.instantiate()
+		notifier.color = Color.FIREBRICK
+		add_child(notifier)
 
 func _on_hitbox_component_area_entered(area):
 	if area is HitboxComponent and (not harmless):
