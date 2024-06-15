@@ -1,0 +1,537 @@
+[gd_scene load_steps=20 format=3 uid="uid://dvqegxp8m27lg"]
+
+[ext_resource type="Script" path="res://Scenes/UI/tutorials_screen.gd" id="1_xdn22"]
+[ext_resource type="Shader" path="res://Shaders/blur.gdshader" id="2_1m7dg"]
+[ext_resource type="Theme" uid="uid://ed8xs2mqvcga" path="res://Assets/UI/MenuTheme.tres" id="2_hst45"]
+[ext_resource type="Texture2D" uid="uid://cmc8ha1ujy77j" path="res://Assets/UI/Skillicon7_32.png" id="2_mtm3j"]
+[ext_resource type="StyleBox" uid="uid://cw6ord50bn6o4" path="res://Assets/UI/RoundTouchButton.tres" id="3_bfyov"]
+[ext_resource type="Texture2D" uid="uid://bllka7ojrnh3y" path="res://Assets/UI/Skillicon13_29.png" id="4_a0rd5"]
+[ext_resource type="AudioStream" uid="uid://cj8gk2xy0lv2k" path="res://Assets/Sounds/ButtonPress.wav" id="4_dynyt"]
+[ext_resource type="Texture2D" uid="uid://ff1rqqsq4m5k" path="res://Assets/UI/Skillicon5_38.png" id="5_qbto4"]
+[ext_resource type="Theme" uid="uid://dcuw7hc1ljr1o" path="res://Assets/UI/tutorial_text_theme.tres" id="6_marj6"]
+[ext_resource type="Texture2D" uid="uid://bnkq7cfvxp50" path="res://Assets/UI/JoystickSplitted.png" id="7_vwob2"]
+[ext_resource type="Texture2D" uid="uid://df2xhc4jc67hx" path="res://Assets/UI/SmallHandleFilledGrey.png" id="8_65vqi"]
+[ext_resource type="Texture2D" uid="uid://cxni5m5xf6atr" path="res://Assets/UI/heart full v3 x3.png" id="9_ynayg"]
+[ext_resource type="Texture2D" uid="uid://opmfl8xaknb7" path="res://Assets/UI/heart half v3 x3.png" id="10_c25wn"]
+[ext_resource type="Texture2D" uid="uid://dcykawg5iu25l" path="res://Assets/UI/full cell x3.png" id="11_x2xlj"]
+[ext_resource type="Texture2D" uid="uid://cvj1iyyhkkiu0" path="res://Assets/UI/empty cell x3.png" id="12_6fckt"]
+[ext_resource type="Texture2D" uid="uid://dqqnn7i56s403" path="res://Assets/UI/skills/Upgrade_Player.png" id="15_tn2q7"]
+[ext_resource type="Texture2D" uid="uid://c82d8ym7dk6sg" path="res://Assets/UI/skills/heal.png" id="16_72t4r"]
+[ext_resource type="Texture2D" uid="uid://ddd6pvqnyp2kf" path="res://Assets/UI/skills/Upgrade_Weapon.png" id="17_8558g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ihil"]
+shader = ExtResource("2_1m7dg")
+shader_parameter/lod = 1.07143
+
+[node name="TutorialsScreen" type="Control" groups=["TutorialScreen"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xdn22")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0.672269)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_0ihil")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExampleTouchUI" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseControl" type="Control" parent="ExampleTouchUI"]
+modulate = Color(1, 1, 1, 0.74902)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 48.0
+grow_horizontal = 0
+
+[node name="PauseButton" type="TouchScreenButton" parent="ExampleTouchUI/PauseControl"]
+self_modulate = Color(1, 1, 1, 0.74902)
+texture_normal = ExtResource("2_mtm3j")
+
+[node name="DashControl" type="Control" parent="ExampleTouchUI"]
+modulate = Color(1, 1, 1, 0.74902)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -192.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="ExampleTouchUI/DashControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_bfyov")
+
+[node name="DashButton" type="TouchScreenButton" parent="ExampleTouchUI/DashControl"]
+scale = Vector2(5, 5)
+texture_normal = ExtResource("4_a0rd5")
+
+[node name="UseControl" type="Control" parent="ExampleTouchUI" groups=["UseButton"]]
+modulate = Color(1, 1, 1, 0.74902)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = 96.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="ExampleTouchUI/UseControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_bfyov")
+
+[node name="UseButton" type="TouchScreenButton" parent="ExampleTouchUI/UseControl"]
+scale = Vector2(2, 2)
+texture_normal = ExtResource("5_qbto4")
+
+[node name="TextureRect" type="TextureRect" parent="ExampleTouchUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("7_vwob2")
+
+[node name="TextureRect" type="TextureRect" parent="ExampleTouchUI/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_65vqi")
+
+[node name="ExampleHUD" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeartContainer" type="HBoxContainer" parent="ExampleHUD"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 25.0
+offset_top = 25.0
+theme_override_constants/separation = 5
+
+[node name="NormalHearts" type="HBoxContainer" parent="ExampleHUD/HeartContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="TextureRect" type="TextureRect" parent="ExampleHUD/HeartContainer/NormalHearts"]
+layout_mode = 2
+texture = ExtResource("9_ynayg")
+
+[node name="TextureRect2" type="TextureRect" parent="ExampleHUD/HeartContainer/NormalHearts"]
+layout_mode = 2
+texture = ExtResource("9_ynayg")
+
+[node name="TextureRect4" type="TextureRect" parent="ExampleHUD/HeartContainer/NormalHearts"]
+layout_mode = 2
+texture = ExtResource("9_ynayg")
+
+[node name="TextureRect5" type="TextureRect" parent="ExampleHUD/HeartContainer/NormalHearts"]
+layout_mode = 2
+texture = ExtResource("9_ynayg")
+
+[node name="TextureRect3" type="TextureRect" parent="ExampleHUD/HeartContainer/NormalHearts"]
+layout_mode = 2
+texture = ExtResource("10_c25wn")
+
+[node name="AmmoContainer" type="HBoxContainer" parent="ExampleHUD"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 25.0
+offset_top = 75.0
+
+[node name="TextureRect" type="TextureRect" parent="ExampleHUD/AmmoContainer"]
+layout_mode = 2
+texture = ExtResource("11_x2xlj")
+
+[node name="TextureRect2" type="TextureRect" parent="ExampleHUD/AmmoContainer"]
+layout_mode = 2
+texture = ExtResource("11_x2xlj")
+
+[node name="TextureRect4" type="TextureRect" parent="ExampleHUD/AmmoContainer"]
+layout_mode = 2
+texture = ExtResource("11_x2xlj")
+
+[node name="TextureRect5" type="TextureRect" parent="ExampleHUD/AmmoContainer"]
+layout_mode = 2
+texture = ExtResource("11_x2xlj")
+
+[node name="TextureRect3" type="TextureRect" parent="ExampleHUD/AmmoContainer"]
+layout_mode = 2
+texture = ExtResource("12_6fckt")
+
+[node name="DashControl" type="Control" parent="ExampleHUD"]
+modulate = Color(1, 1, 1, 0.74902)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -192.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="ExampleHUD/DashControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_bfyov")
+
+[node name="DashButton" type="TouchScreenButton" parent="ExampleHUD/DashControl"]
+scale = Vector2(5, 5)
+texture_normal = ExtResource("4_a0rd5")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_dynyt")
+bus = &"Sounds"
+
+[node name="BasicControls" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_marj6")
+
+[node name="Label" type="Label" parent="BasicControls"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -67.5
+offset_right = 500.0
+offset_bottom = 67.5
+grow_vertical = 2
+text = "Touch anywhere on the left side of the screen to show joystick and move the player"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="BasicControls"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_top = 30.0
+offset_right = -60.0
+grow_horizontal = 0
+text = "Use this button to
+access settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="BasicControls"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_right = -25.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "This button will show when
+there is an action to perform"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="BasicControls"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -225.0
+offset_bottom = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Press here to 
+use Dash"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HealthAndAmmo" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_marj6")
+
+[node name="Label" type="Label" parent="HealthAndAmmo"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 250.0
+offset_top = 25.0
+text = "Here you can see how
+much health you have
+If it drops to 0 
+you will die and lose"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="HealthAndAmmo"]
+layout_mode = 1
+anchors_preset = -1
+offset_top = 175.0
+text = "Below health there
+is your ammo
+
+! Use your Dash to reload !"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="HealthAndAmmo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -225.0
+offset_bottom = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Your dash also
+gives you brief
+invulnerability"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PrepareToFight" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_marj6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PrepareToFight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Label" type="Label" parent="PrepareToFight/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "When you enter a room you will need
+to fight your way through several
+waves of enemies in order
+to exit and move forward"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="PrepareToFight/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.733333, 0, 0, 1)
+text = "Prepare to fight"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Upgrades" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_marj6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Upgrades"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Label" type="Label" parent="Upgrades/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "When you finish a level
+you will be able to
+select an upgrade to
+help you along the way"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Upgrades/VBoxContainer"]
+layout_mode = 2
+text = "There are three types of upgrade to pick from:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Upgrades/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Upgrades/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Upgrades/VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Upgrades/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("15_tn2q7")
+expand_mode = 4
+
+[node name="Label" type="Label" parent="Upgrades/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Player
+upgrade"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="Upgrades/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Upgrades/VBoxContainer/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Upgrades/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("16_72t4r")
+expand_mode = 4
+
+[node name="Label" type="Label" parent="Upgrades/VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Heal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer3" type="PanelContainer" parent="Upgrades/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Upgrades/VBoxContainer/HBoxContainer/PanelContainer3"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Upgrades/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("17_8558g")
+expand_mode = 4
+
+[node name="Label" type="Label" parent="Upgrades/VBoxContainer/HBoxContainer/PanelContainer3/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Weapon
+upgrade"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Upgrades/VBoxContainer"]
+layout_mode = 2
+text = "Choose whisely and good luck"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -44.0
+offset_right = 50.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_hst45")
+text = "Ok"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

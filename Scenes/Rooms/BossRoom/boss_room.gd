@@ -20,6 +20,7 @@ func _ready():
 	Util.play_time_stopped = true
 	player = get_tree().get_first_node_in_group("Player") as Player
 	boss = get_tree().get_first_node_in_group("Boss") as Boss
+	get_tree().get_first_node_in_group("UseButton").hide()
 
 func get_spawn_global_position() -> Vector2:
 	return $SpawnPoint.global_position

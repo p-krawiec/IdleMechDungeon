@@ -1,4 +1,5 @@
 extends Node
+class_name GameMain
 
 @export_category("Rooms")
 @export var room_scenes: Array[PackedScene]

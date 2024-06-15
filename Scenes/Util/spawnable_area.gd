@@ -113,6 +113,14 @@ func room_cleared():
 		upgrade_pickup.doors = doors
 		get_tree().get_first_node_in_group("GameMain").get_node("Entities").add_child(upgrade_pickup)
 		
+		var current_level_number = (get_tree().get_first_node_in_group("GameMain") as GameMain).current_room_number
+		
+		if current_level_number == 1:
+			(get_tree().get_first_node_in_group("TutorialScreen") as TutorialScreen).display_tutorial(4)
+			var player = get_tree().get_first_node_in_group("Player") as Player
+			player.allow_input = false
+			player.direction = Vector2.ZERO
+		
 	queue_free()
 
 func get_enemy_scene_to_spawn():

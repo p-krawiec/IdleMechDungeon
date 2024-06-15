@@ -60,7 +60,6 @@ scale = Vector2(5, 5)
 texture_normal = ExtResource("4_aqoy2")
 
 [node name="UseControl" type="Control" parent="." groups=["UseButton"]]
-visible = false
 modulate = Color(1, 1, 1, 0.74902)
 layout_mode = 1
 anchors_preset = 6

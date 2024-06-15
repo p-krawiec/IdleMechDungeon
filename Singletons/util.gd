@@ -1,6 +1,6 @@
 extends Node
 
-var do_show_tutorial = true
+var show_tutorial = true
 
 var play_time = 0.0
 var play_time_stopped = true

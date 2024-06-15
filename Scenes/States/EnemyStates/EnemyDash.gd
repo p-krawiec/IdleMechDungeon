@@ -81,7 +81,6 @@ func expand_dash_line(delta):
 
 func exit():
 	parent.set_collision_mask_value(10, true) # collisions with other enemies
-	parent.set_collision_layer_value(10, true)
 	parent.sprite.scale.y = 1
 	dash_line.queue_free()
 
@@ -91,8 +90,7 @@ func _on_dash_charge_timer_timeout():
 		dash_line.scale.x = 0
 		parent.sprite.scale.y = 1
 		dash_timer.start()
-		parent.set_collision_mask_value(10, false) # collisions with other enemies
-		parent.set_collision_layer_value(10, false)
+		parent.set_collision_mask_value(10, false) # collisions with other enemies)
 
 func _on_dash_timer_timeout():
 	if ((get_parent() as EnemyStateMachine).current_state == self):
