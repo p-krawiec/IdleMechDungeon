@@ -75,7 +75,7 @@ func dash_charge(delta):
 		expand_dash_line(delta)
 
 func expand_dash_line(delta):
-	dash_line.scale.x += delta * 15
+	dash_line.scale.x += delta * 10
 	parent.sprite.scale.y -= delta * 0.3
 	
 

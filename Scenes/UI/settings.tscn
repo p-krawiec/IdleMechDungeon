@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6krd8betivbv"]
+[gd_scene load_steps=5 format=3 uid="uid://b6krd8betivbv"]
 
 [ext_resource type="Theme" uid="uid://ed8xs2mqvcga" path="res://Assets/UI/MenuTheme.tres" id="1_mvtqv"]
 [ext_resource type="Script" path="res://Scenes/UI/settings.gd" id="1_y4xq7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ttqoi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gudns"]
 
@@ -63,6 +65,13 @@ layout_mode = 2
 max_value = 1.0
 step = 0.01
 
+[node name="TutorialCheckButton" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ttqoi")
+action_mode = 0
+text = "Show tutorials"
+
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 50)
@@ -91,5 +100,6 @@ text = "Back"
 [connection signal="value_changed" from="VBoxContainer/MasterSlider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/SoundsSlider" to="." method="_on_sounds_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="toggled" from="VBoxContainer/TutorialCheckButton" to="." method="_on_tutorial_check_button_toggled"]
 [connection signal="pressed" from="VBoxContainer/RestoreToDefaultsButton" to="." method="_on_restore_to_defaults_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

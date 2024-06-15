@@ -115,7 +115,7 @@ func room_cleared():
 		
 		var current_level_number = (get_tree().get_first_node_in_group("GameMain") as GameMain).current_room_number
 		
-		if current_level_number == 1:
+		if current_level_number == 1 and Util.show_tutorial:
 			(get_tree().get_first_node_in_group("TutorialScreen") as TutorialScreen).display_tutorial(4)
 			var player = get_tree().get_first_node_in_group("Player") as Player
 			player.allow_input = false

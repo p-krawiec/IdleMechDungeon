@@ -159,3 +159,4 @@ follow_animation_name = "Follow"
 [node name="EnemyDash" parent="EnemyStateMachine" instance=ExtResource("12_p13xf")]
 dash_range = 150.0
 dash_speed_modifier = 3.0
+dash_charge_time = 1.0

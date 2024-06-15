@@ -43,7 +43,6 @@ position = Vector2(480, -688)
 position = Vector2(193, -12)
 
 [node name="SpawnableArea" parent="." instance=ExtResource("4_cuds2")]
-visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpawnableArea"]
 polygon = PackedVector2Array(13, -281, 13, -102, 142, -101, 143, -51, 242, -52, 243, -101, 595, -102, 591, -376, 497, -375, 497, -549, 531, -550, 531, -635, 431, -635, 431, -602, 243, -601, 242, -670, 142, -670, 143, -602, 48, -601, 47, -454, 303, -453, 303, -282)

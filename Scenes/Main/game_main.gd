@@ -19,7 +19,7 @@ func _ready():
 	player = get_tree().get_first_node_in_group("Player") as Player
 	player.allow_input = false
 	
-	load_new_room(boss_room, [0,1].pick_random())
+	load_new_room(tutorial_room, [0,1].pick_random())
 	room_scenes.shuffle()
 
 func _process(delta):
@@ -27,6 +27,7 @@ func _process(delta):
 
 func on_teleport_request(upgrade):
 	clear_enemies()
+	Util.play_time_stopped = true
 	player.allow_input = false
 	player.direction = Vector2.ZERO
 	player.global_position = Vector2(-1000, -1000)
@@ -40,7 +41,6 @@ func on_teleport_request(upgrade):
 	load_new_room(new_room_scene, upgrade)
 
 func load_new_room(new_room_scene: PackedScene, upgrade):
-	Util.play_time_stopped = true
 	if not $CurrentRoom.get_children().is_empty():
 		$CurrentRoom.get_child(0).queue_free()
 	
